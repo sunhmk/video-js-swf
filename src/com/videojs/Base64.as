@@ -23,7 +23,37 @@ package com.videojs {
         // TEMP BASE64 FOR TESTING
         // From: http://www.sociodox.com/base64.html
         private static const _decodeChars:Vector.<int> = InitDecodeChar();
-        
+        private static  const encodeChars:Array =
+                    ['A','B','C','D','E','F','G','H',
+                    'I','J','K','L','M','N','O','P',
+                    'Q','R','S','T','U','V','W','X',
+                    'Y','Z','a','b','c','d','e','f',
+                    'g','h','i','j','k','l','m','n',
+                    'o','p','q','r','s','t','u','v',
+                    'w','x','y','z','0','1','2','3',
+                    '4','5','6','7','8','9','+','/'];
+        public static function encode(data:ByteArray):String {
+            var out:Array = [];
+            var i:int = 0;
+            var j:int = 0;
+            var r:int = data.length % 3;
+            var len:int = data.length-r;
+            var c:int;
+            while (i < len) {
+                    c = data[i++] << 16 | data[i++] << 8 | data[i++];
+                    out[j++] = encodeChars[c >> 18] + encodeChars[c >> 12 & 0x3f] + encodeChars[c >> 6 & 0x3f] + encodeChars[c & 0x3f];
+                }
+            if (r == 1) {
+                    c = data[i++];
+                    out[j++] = encodeChars[c >> 2] + encodeChars[(c & 0x03) << 4] + "==";
+                }
+            else if (r == 2) {
+                    c = data[i++] << 8 | data[i++];
+                    out[j++] = encodeChars[c >> 10] + encodeChars[c >> 4 & 0x3f] + encodeChars[(c & 0x0f) << 2] + "=";
+                }
+            return out.join('');
+        }
+ 
         public static function decode(str:String):ByteArray  
         {  
             var c1:int;  
