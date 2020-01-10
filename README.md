@@ -15,7 +15,8 @@ return a base64 string
    ```
 cd node_modules/flex-sdk/lib/flex_sdk/frameworks/：
 modify air-config.xml，airmobile-config.xml， flex-config.xml as:
-``` <target-player>11.5</target-player>   
+``` 
+<target-player>11.5</target-player>   
  <!-- Specifies the version of the compiled SWF -->
  <swf-version>18</swf-version>
 ```
