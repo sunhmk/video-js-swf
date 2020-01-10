@@ -43,11 +43,12 @@ node_modules/flex-sdk/lib/flex_sdk/frameworks/flex-config.xml
 ```
 
 ```xml
-<!-- Specifies the minimum player version that will run the compiled SWF. -->
+```<!-- Specifies the minimum player version that will run the compiled SWF. -->
 <target-player>10.3</target-player>
 
 <!-- Specifies the version of the compiled SWF -->
 <swf-version>12</swf-version>
+```
 ```
 
 2. Run the commands:
