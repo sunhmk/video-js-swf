@@ -20,6 +20,7 @@ package{
     import flash.utils.ByteArray;
     import flash.utils.Timer;
     import flash.utils.setTimeout;
+    import flash.system.Security;
 
     [SWF(backgroundColor="#000000", frameRate="60", width="480", height="270")]
     public class VideoJS extends Sprite{
@@ -30,6 +31,8 @@ package{
         private var _stageSizeTimer:Timer;
 
         public function VideoJS(){
+            Security.allowDomain("*");
+            Security.allowInsecureDomain("*");
             _stageSizeTimer = new Timer(250);
             _stageSizeTimer.addEventListener(TimerEvent.TIMER, onStageSizeTimerTick);
             addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -84,6 +87,8 @@ package{
                 ExternalInterface.addCallback("vjs_pause", onPauseCalled);
                 ExternalInterface.addCallback("vjs_resume", onResumeCalled);
                 ExternalInterface.addCallback("vjs_stop", onStopCalled);
+                ExternalInterface.addCallback("vjs_snap", onSnapCalled);
+
 
                 // This callback should only be used when in data generation mode as it
                 // will adjust the notion of current time without notifiying the player
@@ -429,6 +434,10 @@ package{
 
         private function onStopCalled():void{
             _app.model.stop();
+        }
+
+        private function onSnapCalled():String{
+           return _app.model.snap();//100,100);
         }
 
         private function onUncaughtError(e:Event):void{
