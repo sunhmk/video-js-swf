@@ -10,6 +10,7 @@ package com.videojs{
     import com.videojs.structs.ExternalEventName;
     import com.videojs.structs.PlaybackType;
     import com.videojs.structs.PlayerMode;
+    import com.videojs.Base64;
 
     import flash.events.Event;
     import flash.events.EventDispatcher;
@@ -19,6 +20,10 @@ package com.videojs{
     import flash.media.SoundTransform;
     import flash.media.Video;
     import flash.utils.ByteArray;
+    import flash.display.BitmapData;
+    import flash.geom.Matrix;
+    //import mx.graphics.codec.JPEGEncoderOptions;
+    import mx.controls.Alert;
 
     public class VideoJSModel extends EventDispatcher{
 
@@ -63,6 +68,22 @@ package com.videojs{
                 _instance = new VideoJSModel(new SingletonLock());
             }
             return _instance;
+        }
+
+        public function snap():String{
+            if(_videoReference!= null){
+                var m:Matrix;
+                var imager:BitmapData = new BitmapData(_videoReference.videoWidth,_videoReference.videoHeight);
+                m = new Matrix(_videoReference.videoWidth/320,0,0,_videoReference.videoHeight/240);
+                imager.draw(_videoReference,m,null,null,null,true);
+                //imager.draw(_videoReference);
+                var bs:ByteArray = new ByteArray();
+                imager.encode(new Rectangle(0,0,
+                    _videoReference.videoWidth,_videoReference.videoHeight), new flash.display.JPEGEncoderOptions(), bs);
+                var base64Code:String = Base64.encode(bs);
+                return base64Code;
+            }
+            return "";
         }
 
         public function get mode():String{
