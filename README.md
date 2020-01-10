@@ -6,11 +6,19 @@ This project doesn't need to be used if you simply want to use the Flash tech in
 - For Video.js 6.x and above, the Flash tech is in a [separate repository](https://github.com/videojs/videojs-flash).
 
 ## Installation
-
+rectify video height/width ratio to full.
+add capture video as jpeg.
+return a base64 string
 1. Install Node Packages.
 ```bash
     npm install
    ```
+cd node_modules/flex-sdk/lib/flex_sdk/frameworks/：
+modify air-config.xml，airmobile-config.xml， flex-config.xml as:
+ <target-player>11.5</target-player>   
+ <!-- Specifies the version of the compiled SWF -->
+ <swf-version>18</swf-version>
+
 2. Compile SWF.
 Development (places new SWF in /dist/):
 ```bash
