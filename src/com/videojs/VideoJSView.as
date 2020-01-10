@@ -78,12 +78,13 @@ package com.videojs{
 
             // first, size the whole thing down based on the available width
             __targetWidth = __availableWidth;
-            __targetHeight = __targetWidth * (__nativeHeight / __nativeWidth);
+            __targetHeight = __availableHeight;
+            /*__targetHeight = __targetWidth * (__nativeHeight / __nativeWidth);
 
             if(__targetHeight > __availableHeight){
                 __targetWidth = __targetWidth * (__availableHeight / __targetHeight);
                 __targetHeight = __availableHeight;
-            }
+            }*/
 
             _uiVideo.width = __targetWidth;
             _uiVideo.height = __targetHeight;
